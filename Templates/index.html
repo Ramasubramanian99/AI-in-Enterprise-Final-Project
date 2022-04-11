@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="">
-        
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
+        <title>Fake News detector</title>
+    </head>
+    <body>
+        <div class="background">
+            <div class="overlay">
+                <div class="card">
+                    <h2>Fake news detector</h2>
+                    <p>Type or paste the news that you want to check and click on validate news to check if the news is real</p>
+                    <textarea id="text" class="newsInp" rows="20" cols="40" name="text" placeholder="Enter your news to check here"></textarea>
+                    <div class="btnWrapper">
+                        <button class="submitBtn">Validate news</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+
+    </script>
+
 </html>
