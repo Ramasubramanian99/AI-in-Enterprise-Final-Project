@@ -61,3 +61,7 @@ body {
     border: 1px solid grey;
     font-family: 'Courier New', Courier, monospace;
 }
+
+.error {
+    color: red;
+}

@@ -14,15 +14,42 @@
                     <h2>Fake news detector</h2>
                     <p>Type or paste the news that you want to check and click on validate news to check if the news is real</p>
                     <textarea id="text" class="newsInp" rows="20" cols="40" name="text" placeholder="Enter your news to check here"></textarea>
+                    <p id="error" class="error"></p>
                     <div class="btnWrapper">
-                        <button class="submitBtn">Validate news</button>
+                        <button class="submitBtn" onclick="validateNews(event)">Validate news</button>
                     </div>
                 </div>
             </div>
         </div>
     </body>
     <script>
+        let errorTxt = document.getElementById('error')
+        const validateNews = (e) => {
+            e.preventDefault();
+            errorTxt.textContent = ""
+            news = document.getElementsByName('text')[0].value
+            if(news.length !== 0) {
+                fetch("/predict", {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({news: news})
+                    })
+                    .then(response => response.json())
+                    .then(json => {
+                        console.log(json)
+                        alert(json.news)
+                    }
+                ); 
+            } else {
+                errorTxt.textContent = "Enter some value"
+            }
+        }
 
+        document.getElementById('text').addEventListener('onchange', (e) => {
+            if(errorTxt.textContent !== "") {
+                errorTxt.textContent = ""
+            }
+        })
     </script>
 
 </html>

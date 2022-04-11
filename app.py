@@ -2,13 +2,10 @@ from flask import Flask, request, url_for, redirect, render_template, jsonify
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import nltk
 import pandas as pd
 import pickle
-
-
 import json
-import numpy as np
+
 
 app =Flask(__name__)
 
@@ -23,15 +20,24 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    text = [request.form['text']]
+    body =request.json
+    text = [body['news']]
     text_token = tokenizer.texts_to_sequences([text])
     text_token = pad_sequences(text_token, 700)
     out = loaded_fake_news_model.predict(x=text_token)
     print(out)
+    data = {"news": None}
     if out[0][0] >= 0.5:
-        return "True news"
+        data["news"] = "True News"
     else:
-        return "Fake news"
+        data["news"] = "Fake news"
+
+    response = app.response_class(response=json.dumps(data),
+                                  status=200,
+                                  mimetype='application/json')
+
+    return response
+   
 
 
 if __name__ == '__main__':
